@@ -1,0 +1,1 @@
+Bitmap.createScaledBitmap(Bitmap src, int dstWidth, int dstHeight, boolean filter)

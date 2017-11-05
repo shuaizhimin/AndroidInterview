@@ -1,0 +1,4 @@
+ViewGroup继承自View，是一种特殊的View，可以理解成一种View的容器，它可以装其他的View或其他的ViewGroup。
+ViewGroup需要控制子View如何布局，所以必须实现onLayout（在ViewGroup中是抽像方法）。
+ViewGroup可以通过onInterceptTouchEvent拦截当前事件，再决定是否分发给子View处理。
+ViewGroup默认是不会调用onDraw方法的，如果需要重绘容器的背景需要在构造函数调用setWillNotDraw(false)。  
