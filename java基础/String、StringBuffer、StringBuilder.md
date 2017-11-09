@@ -6,5 +6,3 @@
    1.String 线程安全
    2.StringBuffer 线程安全
    3.StringBuilder 非线程安全
-
-String equals 重写了方法 所以可以比较

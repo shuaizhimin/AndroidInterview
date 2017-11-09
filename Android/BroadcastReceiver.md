@@ -1,8 +1,8 @@
 ##问题
 * 广播种类 
 * 广播使用场景
+* 广播注册方式
 * 广播跨进程通讯原理
-* 
 
 ## 使用场景
  * App全局监听
@@ -44,6 +44,52 @@ sendStickyBroadcast只保留最后一条广播，并且一直保留下去，这�
 
 ###系统广播
 
+
+## 广播注册方式
+* 静态注册 
+
+> android不能自动销毁广播接收器，也就是说当应用程序关闭后，还是会接收广播
+
+```
+//静态注册广播
+ <receiver
+        android:name=".MyReceiver"
+        android:enabled="true"
+        android:exported="true">
+        <!-- 静态注册广播 -->
+        <!-- intent过滤器,指定可以匹配哪些intent, 一般需要定义action 可以是自定义的也可是系统的 -->  
+        <intent-filter>
+        <!--action-->
+            <action android:name="com.broadcast.test" />
+       </intent-filter>
+ </receiver>
+
+
+
+//静态注册广播发送
+Intent intent=new Intent();
+//与清单文件的receiver的anction对应
+intent.setAction("com.broadcast.test");
+intent.putExtra("info","测试静态注册广播");
+//发送广播
+sendBroadcast(intent);
+```
+* 动态注册 
+
+> 当程序关闭时,该接收器也会随之销毁。当然，也可手工调用unregisterReceiver()进行销毁。
+
+```
+//动态注册广播
+dynamicReceiver = new DynamicReceiver();
+IntentFilter intentFilter = new IntentFilter();
+intentFilter.addAction("com.broadcast.test2");
+registerReceiver(dynamicReceiver, intentFilter);
+//发送信息
+Intent intent=new Intent();
+intent.setAction("com.broadcast.test2");
+intent.putExtra("name", "动态注册广播");
+sendBroadcast(intent);
+```
 
 
 ## 广播源码
